@@ -18,6 +18,9 @@ public interface TodoItemRepo extends JpaRepository<TodoItem, Long> {
     List<TodoItem> findByCompleteFalse();
 
 
+    List<TodoItem> findByUserAndComplete(User user, boolean complete);
+
+
 }
 
 

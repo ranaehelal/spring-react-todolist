@@ -81,6 +81,26 @@ public class TodoItemService {
         return todoItemRepo.findByCompleteFalse();
     }
 
+
+    public List<TodoItem> getCompletedTasksByUser(Long userId) {
+        User user = userRepo.findById(userId).orElse(null);
+        if (user != null) {
+            return todoItemRepo.findByUserAndComplete(user, true);
+        } else {
+            throw new RuntimeException("User with id not found : " + userId);
+        }
+    }
+
+    public List<TodoItem> getNotCompletedTasksByUser(Long userId) {
+        User user = userRepo.findById(userId).orElse(null);
+        if (user != null) {
+            return todoItemRepo.findByUserAndComplete(user, false);
+        } else {
+            throw new RuntimeException("User with id not found with id: " + userId);
+        }
+    }
+
+
     public TodoItem toggleComplete(Long todoId) {
         TodoItem existingTodo = todoItemRepo.findById(todoId).orElse(null);
         if (existingTodo != null) {
