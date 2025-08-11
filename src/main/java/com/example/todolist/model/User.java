@@ -1,5 +1,6 @@
 package com.example.todolist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,9 @@ public class User {
 
     // cascade to change in the user too
     //orphan removal to remove the from the database if the has no users
+
+    @JsonIgnore
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<TodoItem> todos = new ArrayList<>();
 
