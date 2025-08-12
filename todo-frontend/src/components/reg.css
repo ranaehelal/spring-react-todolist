@@ -48,11 +48,12 @@
     border-bottom: 1px solid #000;
     background-color: white;
     outline: none;
+   /* margin-bottom: 20px;*/
 
 }
 
 .register-button {
-
+    margin-top: 20px;;
     padding: 15px;
     background-color: #382B73;
     color: white;
@@ -102,3 +103,226 @@
 .reset-link a:hover {
     text-decoration: underline;
 }
+/*---------------------------------------------------------------------------*/
+/*----------- Home Page Styles -----------*/
+
+.app-container {
+    display: flex;
+    height: 100vh;
+    background-color: white;
+}
+
+.home-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+}
+/* -------------------------- side bar -----------------------*/
+.sidebar {
+    width: 200px;
+    background-color: white;
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
+}
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+
+}
+
+.menu-item:hover {
+    background-color: #eaeaea;
+}
+.menu-item.active {
+    color: #382B73;
+}
+
+.menu-item.active  {
+    color: #382B73;
+}
+
+.logout-button {
+    margin-top: 30px;
+    padding: 8px 12px;
+    width: 100%;
+    font-size: 1rem;
+    cursor: pointer;
+    color: black;
+    background: none;
+    border: none;
+}
+
+
+
+
+
+
+.main-content {
+    margin-left: 100px;
+    margin-right: 100px;
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+
+
+.home-container h2 {
+    color: #382B73;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+
+/* ---------------------------Progress ---------------------------- */
+
+.progress-bar {
+    background-color: rgba(120, 95, 255, 0.39);
+    border-radius: 8px;
+    height: 20px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.progress-fill {
+    background-color: #382B73;
+    height: 100%;
+}
+
+.progress-text {
+    margin-top: 5px;
+}
+
+/* ----------------------tododd------------------------------------- */
+.add-task-form {
+    margin-bottom: 30px;
+}
+
+.add-task-form .register-input {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+
+
+.delete-btn {
+    background-color: #dc3545 ;
+}
+
+.delete-btn:hover {
+    background-color: #c82333 ;
+}
+
+.todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.todo-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.todo-item:hover {
+    background-color: #f5f5f5;
+    border-color: #382B73;
+}
+
+.todo-item.completed {
+    opacity: 0.7;
+}
+
+.todo-checkbox {
+    margin-top: 6px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.todo-details {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.todo-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.todo-title strong {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.todo-item.completed .todo-title strong {
+    text-decoration: line-through;
+    color: #999;
+}
+
+
+
+
+.todo-description {
+    margin: 8px 0;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.todo-date {
+    color: #999;
+    font-size: 0.8rem;
+}
+
+
+.todo-actions button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.todo-actions button:hover {
+
+    color: #382B73;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
