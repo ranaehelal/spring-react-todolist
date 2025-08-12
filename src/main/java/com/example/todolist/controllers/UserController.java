@@ -1,5 +1,6 @@
 package com.example.todolist.controllers;
 
+import com.example.todolist.model.ForgetPasswordRequest;
 import com.example.todolist.model.LoginRequest;
 import com.example.todolist.model.User;
 import com.example.todolist.services.UserService;
@@ -34,10 +35,13 @@ public class UserController {
     }
 
 
-    @PutMapping("/{userId}/forget-password")
-    public User forgetPassword(@PathVariable Long userId, @RequestParam String newPassword) {
-        return userService.forgetPassword(userId, newPassword);
+    @PutMapping("/forget-password")
+    public User forgetPassword(@RequestBody ForgetPasswordRequest request) {
+        return userService.forgetPassword(request.getEmail(), request.getNewPassword());
     }
+
+
+
 
 
     @PostMapping("/logout")

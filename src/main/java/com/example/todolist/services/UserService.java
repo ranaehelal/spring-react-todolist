@@ -27,14 +27,14 @@ public class UserService {
          throw new RuntimeException("Invalid password or email");
     }
 
-    public User forgetPassword(Long userId ,String newPassword) {
-        User user = userRepo.findById(userId).orElse(null);
+    public User forgetPassword(String email ,String newPassword) {
+        User user = userRepo.findByEmail(email);
 
         if (user != null) {
             user.setPassword(newPassword);
             return userRepo.save(user);
         } else {
-            throw new RuntimeException("User not found with id: " + userId);
+            throw new RuntimeException("User not found with email: " + email);
         }
     }
 
