@@ -1,0 +1,14 @@
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+}
+
+.header-logo {
+    height: 40px;
+    cursor: pointer;
+    padding-left: 48px;
+    padding-top: 48px;
+}
