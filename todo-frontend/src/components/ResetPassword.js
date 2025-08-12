@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 export default function ResetPassword() {
     const location = useLocation();
-    const navigate = useNavigate();
     const email = location.state?.email || '';
 
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleReset = async (e) => {
         e.preventDefault();
@@ -21,13 +20,18 @@ export default function ResetPassword() {
         }
 
         try {
-            await axios.put('http://localhost:8080/api/users/forget-password', {
-                email,
-                newPassword: password,
+            const response = await fetch('http://localhost:8080/api/users/forget-password', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, newPassword: password }),
             });
+
+            if (!response.ok) {
+                throw new Error('Error while resetting password');
+            }
             navigate('/login');
         } catch (err) {
-            setError('Error resetting password');
+            setError('Error while resetting password');
             console.error(err);
         }
     };

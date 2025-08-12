@@ -5,8 +5,8 @@ export default function ForgetPasswordEmail() {
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
 
-    const handleNext = (e) => {
-        e.preventDefault();
+    const handleEdit = (evt) => {
+        evt.preventDefault(); //page reload
         navigate('/reset-password', { state: { email } });
     };
 
@@ -14,7 +14,7 @@ export default function ForgetPasswordEmail() {
         <div className="register">
             <div className="login-card">
                 <h2 className="register-title">Forget Password</h2>
-                <form className="register-form" onSubmit={handleNext}>
+                <form className="register-form" onSubmit={handleEdit}>
                     <input
                         type="email"
                         placeholder="Email"
