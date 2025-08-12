@@ -1,0 +1,104 @@
+* {
+    font-family: 'Poppins';
+}
+.register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+
+}
+
+
+.login-card {
+    background: white;
+    padding-top: 300px;
+
+
+    height: 100%;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.register-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.register-form .input {
+    margin-bottom: 20px;
+}
+
+.register-input,
+.register-button {
+
+    width: 100%;
+    height: 56px;
+    font-size: 1.1rem;
+    box-sizing: border-box;
+}
+
+
+.register-input {
+    padding: 15px;
+    border: none;
+    border-bottom: 1px solid #000;
+    background-color: white;
+    outline: none;
+
+}
+
+.register-button {
+
+    padding: 15px;
+    background-color: #382B73;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.register-button:disabled {
+    background-color: #9ec7e8;
+    cursor: not-allowed;
+}
+
+.error-message {
+    margin-top: 15px;
+    color: red;
+    font-size: 1rem;
+}
+
+.register-link {
+    margin-top: 20px;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.register-link a {
+    color: #382B73;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+
+.reset-link {
+    margin-top: 20px;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.reset-link a {
+    color: #382B73;
+    text-decoration: none;
+}
+
+.reset-link a:hover {
+    text-decoration: underline;
+}
