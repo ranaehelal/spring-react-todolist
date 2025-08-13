@@ -209,18 +209,63 @@
 }
 
 /* ----------------------tododd------------------------------------- */
+
+
+
+/* ----------------------tododd form------------------------------------- */
 .add-task-form {
-    margin-bottom: 30px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    padding: 30px;
+    max-width: 100%;
+    background: #fff;
+    margin-bottom: 20px;
+
 }
 
-.add-task-form .register-input {
-    margin-bottom: 15px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+.title-ip,
+.desc-ip {
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.title-ip:focus,
+.desc-ip:focus {
+    outline: none;
+    border-bottom-color: #382B73;
+}
+
+.date-label {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.label,
+.date {
+    flex: 1;
+    padding: 6px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.label:focus,
+.date:focus {
+    border-color: #382B73;
 }
 
 
+
+
+
+/* ----------------------tododd not form------------------------------------- */
 
 .delete-btn {
     background-color: #dc3545 ;
@@ -311,6 +356,8 @@
 
     color: #382B73;
 }
+
+
 
 
 
