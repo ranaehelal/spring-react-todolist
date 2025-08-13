@@ -1,0 +1,46 @@
+/* -------------------------- side bar -----------------------*/
+.sidebar {
+    width: 200px;
+    background-color: white;
+    padding: 20px;
+    height: 100%;
+}
+.sidebar-all_items {
+    /*vertical */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.logout-button {
+    margin-top: 30px;
+    padding: 8px 12px;
+    width: 100%;
+    font-size: 1rem;
+    cursor: pointer;
+    color: black;
+    background: none;
+    border: none;
+}
+.logout-button:hover {
+    color: darkred;
+}
+
+.sidebar-item  {
+    padding: 15px 20px;
+    cursor: pointer;
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+
+}
+
+.sidebar-item :hover {
+    color: #866cff;
+}
+
+/*both classes*/
+.sidebar-item.current {
+    color: #382B73;
+}
+

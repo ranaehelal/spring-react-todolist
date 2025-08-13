@@ -1,41 +1,42 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import './SideBar.css'
 
-function Sidebar({ user, activeFilter, setActiveFilter }) {
+function Sidebar({ user, usedFilter, setNewFilter }) {
+    const navigate = useNavigate();
+
     return (
         <div className="sidebar">
-            <div className="logo" style={{ marginBottom: 20 }}>
+            <div className="logo" >
                 <p>Welcome, {user.fname + ' ' + user.lname}</p>
             </div>
 
-            <div className="sidebar-menu">
+            <div className="sidebar-all_items">
                 <div
-                    className={`menu-item ${activeFilter === 'all' ? 'active' : ''}`}
-                    onClick={() => setActiveFilter('all')}
-                    style={{ cursor: 'pointer', marginBottom: 10 }}
+                    className={`sidebar-item ${usedFilter === 'all' ? 'current' : ''}`}
+                    onClick={() => setNewFilter('all')}
+                    // set re render the oage
                 >
                     <span>All Tasks</span>
                 </div>
 
                 <div
-                    className={`menu-item ${activeFilter === 'important' ? 'active' : ''}`}
-                    onClick={() => setActiveFilter('important')}
-                    style={{ cursor: 'pointer', marginBottom: 10 }}
+                    className={`sidebar-item ${usedFilter === 'important' ? 'current' : ''}`}
+                    onClick={() => setNewFilter('important')}
                 >
                     <span>Important</span>
                 </div>
 
                 <div
-                    className={`menu-item ${activeFilter === 'work' ? 'active' : ''}`}
-                    onClick={() => setActiveFilter('work')}
-                    style={{ cursor: 'pointer', marginBottom: 10 }}
+                    className={`sidebar-item ${usedFilter === 'work' ? 'current' : ''}`}
+                    onClick={() => setNewFilter('work')}
                 >
                     <span>Work</span>
                 </div>
 
                 <div
-                    className={`menu-item ${activeFilter === 'personal' ? 'active' : ''}`}
-                    onClick={() => setActiveFilter('personal')}
-                    style={{ cursor: 'pointer', marginBottom: 10 }}
+                    className={`sidebar-item ${usedFilter === 'personal' ? 'current' : ''}`}
+                    onClick={() => setNewFilter('personal')}
                 >
                     <span>Personal</span>
                 </div>
@@ -45,7 +46,7 @@ function Sidebar({ user, activeFilter, setActiveFilter }) {
                 className="logout-button"
                 onClick={() => {
                     localStorage.removeItem('user');
-                    window.location.href = '/login';
+                    navigate('/login');
                 }}
             >
                 Logout
