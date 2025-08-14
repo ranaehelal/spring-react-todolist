@@ -1,54 +1,83 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import './reg.css';
-import Sidebar from './Sidebar';
+import Sidebar from './home-components/Sidebar';
+import './home-components/Form.css';
+import './home-components/ProgressBar.css'
 
 function Home() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const navigate = useNavigate();
+
+    const user = JSON.parse(localStorage.getItem('user')); // convert the str into json
     const userId = user?.userId;
 
     const [todos, setTodos] = useState([]);
+
+    //todoo form has :
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [label, setLabel] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [activeFilter, setActiveFilter] = useState('all');
-    const [error, setError] = useState('');
-    const [editTodoId, setEditTodoId] = useState(null);
     const [date, setDate] = useState('');
 
+    //another todooo id for edit
+    // when null (deafult)
+    //no edit
+    const [editTodoId, setEditTodoId] = useState(null);
+
+
+
+    // check for clicked
+    //why ?
+    // to prevent multi click
+    const [clicked, setClicked] = useState(false);
+
+
+    // all , important , work , personal
+    const [taskLabel, setTaskLabel] = useState('all');
+
+
+
+    //Hook
+    //when i go to home it check for the user id
+    //and get the todos
     useEffect(() => {
-        if (!userId || userId === 'undefined' || isNaN(userId)) {
-            setError('Please log in again');
+        if (!userId ) {
             return;
         }
-        setError('');
         getALLTodos();
     }, [userId]);
+
+    //get all todos but after operations
 
     const getALLTodos = async () => {
         try {
             const res = await fetch(`http://localhost:8080/api/todos/user/${userId}`);
-            if (!res.ok) throw new Error('Cant to get todos');
+            if (!res.ok) throw new Error('Cant get todos');
+
+            //conv to json and put it in the todos (state)
             const data = await res.json();
             setTodos(data);
         } catch (err) {
             console.error(err);
-            setError('Failed to load todos');
         }
     };
 
-    const handleAddTodo = async (e) => {
+    const addNewTodo = async (e) => {
+        // no reload event from the form
         e.preventDefault();
         if (!title.trim()) return;
 
-        setLoading(true);
+        //start show clicked
+
+        setClicked(true);
         try {
             const res = await fetch(`http://localhost:8080/api/todos/user/${userId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ title, description, label ,date}),
             });
-            if (!res.ok) throw new Error('Fail add todo');
+            if (!res.ok) throw new Error('Fail add ');
 
             setTitle('');
             setDescription('');
@@ -57,9 +86,8 @@ function Home() {
             getALLTodos();
         } catch (err) {
             console.error(err);
-            setError('Failo add todo');
         } finally {
-            setLoading(false);
+            setClicked(false);
         }
     };
 
@@ -72,7 +100,6 @@ function Home() {
             getALLTodos();
         } catch (err) {
             console.error(err);
-            setError('Failed toggle ');
         }
     };
 
@@ -83,6 +110,8 @@ function Home() {
                 const res = await fetch(`http://localhost:8080/api/todos/${todo.todoId}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
+
+                    //Same toooodo just change the state
                     body: JSON.stringify({ ...todo, complete: true }),
                 });
                 if (!res.ok) throw new Error('Fail mark all completed');
@@ -90,27 +119,25 @@ function Home() {
             getALLTodos();
         } catch (err) {
             console.error(err);
-            setError('Fail ark all completed');
         }
     };
 
     const deleteCompleted = async () => {
         try {
-            const completed = todos.filter((t) => t.complete);
+            const completed = todos.filter((todo) => todo.complete);
             for (const todo of completed) {
                 const res = await fetch(`http://localhost:8080/api/todos/${todo.todoId}`, {
                     method: 'DELETE',
                 });
-                if (!res.ok) throw new Error('Failed to delete completed todos');
+                if (!res.ok) throw new Error('Fail delete completed ');
             }
             getALLTodos();
         } catch (err) {
             console.error(err);
-            setError('Failed : delete completed todos');
         }
     };
 
-    const handleDelete = async (todoId) => {
+    const DeleteTodo = async (todoId) => {
         try {
             const res = await fetch(`http://localhost:8080/api/todos/${todoId}`, {
                 method: 'DELETE',
@@ -119,11 +146,11 @@ function Home() {
             getALLTodos();
         } catch (err) {
             console.error(err);
-            setError('Failed to delete todo');
         }
     };
 
-    const startEditing = (todo) => {
+    const editGetOld = (todo) => {
+        //edit state
         setEditTodoId(todo.todoId);
         setTitle(todo.title);
         setDescription(todo.description || '');
@@ -131,18 +158,18 @@ function Home() {
         setDate(todo.date ? todo.date.split('T')[0] : '');
     };
 
-    const handleEdit = async (e) => {
-        e.preventDefault();
+    const editSubmit = async (evet) => {
+        evet.preventDefault();
         if (!editTodoId) return;
 
-        const todoToUpdate = todos.find(t => t.todoId === editTodoId);
+        const todoWillBeUpdate = todos.find(todo => todo.todoId === editTodoId);
 
         try {
             const res = await fetch(`http://localhost:8080/api/todos/${editTodoId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    ...todoToUpdate,
+                    ...todoWillBeUpdate,
                     title,
                     description,
                     label,
@@ -150,8 +177,9 @@ function Home() {
                 })
             });
 
-            if (!res.ok) throw new Error('Failed to update todo');
+            if (!res.ok) throw new Error('Fail edit todo');
 
+            // reset
             setEditTodoId(null);
             setTitle('');
             setDescription('');
@@ -159,7 +187,7 @@ function Home() {
             setDate('');
             getALLTodos();
         } catch (err) {
-            setError('Failed to update todo');
+            console.error(err);
         }
     };
 
@@ -170,7 +198,8 @@ function Home() {
                 <div className="error-message">
                     <h2>Error</h2>
                     <p>Please log in to view your tasks</p>
-                    <button className="register-button" onClick={() => (window.location.href = '/login')}>
+                    <button className="register-button" onClick={() => ( navigate('/login')
+                        )}>
                         Go back to Login
                     </button>
                 </div>
@@ -178,61 +207,70 @@ function Home() {
         );
     }
 
-    const getFilteredTodos = () => {
-        if (activeFilter === 'all') return todos;
-        if (activeFilter === 'important') return todos.filter((t) => t.label === 'important');
-        if (activeFilter === 'work') return todos.filter((t) => t.label === 'work');
-        if (activeFilter === 'personal') return todos.filter((t) => t.label === 'personal');
+
+   //change when set state
+    const TodosBYFilter = () => {
+        if (taskLabel === 'all') return todos;
+        if (taskLabel === 'important') return todos.filter((todo) => todo.label === 'important');
+        if (taskLabel === 'work') return todos.filter((todo) => todo.label === 'work');
+        if (taskLabel === 'personal') return todos.filter((todo) => todo.label === 'personal');
         return todos;
     };
 
-    const filteredTodos = getFilteredTodos();
-    const completedCount = filteredTodos.filter((t) => t.complete).length;
+    const filteredTodos = TodosBYFilter();
+    const completedCount = filteredTodos.filter((todo) => todo.complete).length;
     const progressPercent = filteredTodos.length === 0 ? 0 : (completedCount / filteredTodos.length) * 100;
 
-    let heading = '';
-    if (activeFilter === 'all') heading = 'All Tasks';
-    else if (activeFilter === 'important') heading = 'Important Tasks';
-    else if (activeFilter === 'work') heading = 'Work Tasks';
-    else if (activeFilter === 'personal') heading = 'Personal Tasks';
+
+    const headingsMap = {
+        all: 'All Tasks',
+        important: 'Important Tasks',
+        work: 'Work Tasks',
+        personal: 'Personal Tasks'
+    };
+    //change when set state
+
+    const heading = headingsMap[taskLabel] || '';
 
     return (
-        <div className="app-container">
-            <Sidebar user={user} activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
-
-            <div className="main-content" >
-                <div className="home-container">
+        <div className="all-page">
+            {/*    //change when set state*/}
+            <Sidebar user={user} usedFilter={taskLabel} setNewFilter={setTaskLabel} />
+            <div className="main-content">
                     <h2>{heading}</h2>
 
                     <form
                         className="add-task-form"
-                        onSubmit={editTodoId ? handleEdit : handleAddTodo}
+                        onSubmit={editTodoId ? editSubmit : addNewTodo}
                     >
+                        {/*// when set state change title also (must)*/}
+
                         <input
                             className="title-ip"
                             type="text"
-                            placeholder="Add new task title"
+                            placeholder="Title"
                             value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+
+                            onChange={(evt) => setTitle(evt.target.value)}
                             required
-                            disabled={loading}
+                            disabled={clicked}
                         />
                         <input
                             className="desc-ip"
                             type="text"
-                            placeholder="Description (optional)"
+                            placeholder="Description"
                             value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            disabled={loading}
+                            onChange={(evt) => setDescription(evt.target.value)}
+                            disabled={clicked}
                         />
                         <div className="date-label">
                             <select
                                 className="label"
                                 value={label}
-                                onChange={(e) => setLabel(e.target.value)}
-                                disabled={loading}
+                                onChange={(evt) => setLabel(evt.target.value)}
+                                disabled={clicked}
                             >
-                                <option value="">Select label (optional)</option>
+                                <option value="">Select label </option>
                                 <option value="important">Important</option>
                                 <option value="work">Work</option>
                                 <option value="personal">Personal</option>
@@ -241,13 +279,13 @@ function Home() {
                                 className="date"
                                 type="date"
                                 value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                disabled={loading}
+                                onChange={(evt) => setDate(evt.target.value)}
+                                disabled={clicked}
                             />
                         </div>
 
-                        <button type="submit" className="register-button" disabled={loading}>
-                            {loading
+                        <button type="submit" className="register-button" disabled={clicked}>
+                            {clicked
                                 ? (editTodoId ? 'Updating' : 'Adding')
                                 : (editTodoId ? 'Update Task' : 'Add Task')}
                         </button>
@@ -288,8 +326,8 @@ function Home() {
                                 </div>
 
                                 <div className="todo-actions">
-                                    <button onClick={() => startEditing(todo)}>Edit</button>
-                                    <button className="remove-btn" onClick={() => handleDelete(todo.todoId)}>Remove</button>
+                                    <button onClick={() => editGetOld(todo)}>Edit</button>
+                                    <button className="remove-btn" onClick={() => DeleteTodo(todo.todoId)}>Remove</button>
                                 </div>
                             </li>
                         ))}
@@ -297,7 +335,7 @@ function Home() {
 
                     {filteredTodos.length === 0 && <p>"Catch every thought before it runs away. We've got the net."</p>}
                 </div>
-            </div>
+
         </div>
     );
 }
