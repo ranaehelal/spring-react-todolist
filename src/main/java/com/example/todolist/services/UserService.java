@@ -24,7 +24,9 @@ public class UserService {
         if(user != null && user.getPassword().equals(password)){
             return user;
         }
-         throw new RuntimeException("Invalid password or email");
+        else{
+            throw new RuntimeException("Invalid password or email");
+        }
     }
 
     public User forgetPassword(String email ,String newPassword) {

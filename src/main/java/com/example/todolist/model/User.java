@@ -21,12 +21,12 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    // cascade to change in the user too
+    // cascade to change in the user too if change in the todoo (like remove the todoo)
     //orphan removal to remove the from the database if the has no users
 
     @JsonIgnore
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+
     private final List<TodoItem> todos = new ArrayList<>();
 
 
