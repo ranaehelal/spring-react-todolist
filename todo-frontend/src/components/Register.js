@@ -78,7 +78,7 @@ function Register() {
                 </form>
                 <div className="error-message">{error}</div>
                 <div className="other-link">
-                    Already have an account? <Link to="/login">Sign In</Link>
+                    Already have an account? <Link to="/login">Log In</Link>
                 </div>
             </div>
         </div>
