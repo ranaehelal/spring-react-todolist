@@ -1,0 +1,86 @@
+
+/* ----------------------tododd items------------------------------------- */
+
+.todo-list-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.todo-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 5px;
+    border-bottom: 1px solid #ddd;
+    justify-content: space-between;
+}
+
+.todo-item:hover {
+    background-color: #f5f5f5;
+    border-color: #382B73;
+}
+
+.todo-item.completed {
+    opacity: 0.7;
+}
+
+.todo-checkbox {
+    margin-top: 6px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.todo-details {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.todo-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/*child */
+.todo-item.completed .todo-title {
+    text-decoration: line-through;
+    color: #999;
+}
+
+
+.todo-desc {
+    margin: 8px 0;
+    color: #7E7E7E;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.todo-date {
+    color: #999;
+    font-size: 0.8rem;
+}
+.todo-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+
+.todo-actions button {
+
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.todo-actions button:hover {
+
+    color: #382B73;
+}
+
+
+
