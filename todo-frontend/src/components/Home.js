@@ -5,6 +5,8 @@ import './reg.css';
 import Sidebar from './home-components/Sidebar';
 import './home-components/Form.css';
 import './home-components/ProgressBar.css'
+import './Home.css';
+import './home-components/TodoItem.css'
 
 function Home() {
     const navigate = useNavigate();
@@ -308,7 +310,7 @@ function Home() {
                         </button>
                     </div>
 
-                    <ul className="todo-list">
+                    <ul className="todo-list-details">
                         {filteredTodos.map((todo) => (
                             <li key={todo.todoId} className={`todo-item ${todo.complete ? 'completed' : ''}`}>
                                 <input
@@ -319,10 +321,11 @@ function Home() {
                                 />
                                 <div className="todo-details">
                                     <div className="todo-title">
-                                        <strong>{todo.title}</strong>
+                                       {todo.title}
                                     </div>
-                                    {todo.description && <p className="todo-description">{todo.description}</p>}
-                                    <small className="todo-date">{new Date(todo.date).toLocaleDateString()}</small>
+
+                                     <div className="todo-desc">{todo.description}</div>
+                                    <div className="todo-date">{new Date(todo.date).toLocaleDateString()}</div>
                                 </div>
 
                                 <div className="todo-actions">
