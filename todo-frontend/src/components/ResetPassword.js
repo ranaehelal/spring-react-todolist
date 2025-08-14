@@ -31,7 +31,6 @@ export default function ResetPassword() {
             }
             navigate('/login');
         } catch (err) {
-            setError('Error while resetting password');
             console.error(err);
         }
     };
@@ -58,7 +57,7 @@ export default function ResetPassword() {
                         required
                     />
                     <button type="submit" className="register-button">Reset</button>
-                    {error && <p className="error-message">{error}</p>}
+                    <p className="error-message">{error}</p>
                 </form>
             </div>
         </div>
