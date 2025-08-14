@@ -1,0 +1,52 @@
+/* ----------------------tododd form------------------------------------- */
+.add-task-form {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 100%;
+    background: #fff;
+    margin-bottom: 20px;
+
+}
+
+.title-ip,
+.desc-ip {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 8px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.title-ip:focus,
+.desc-ip:focus {
+    outline: none;
+    border-bottom-color: #382B73;
+}
+
+.date-label {
+    /* next to each other with gap*/
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.label,
+.date {
+    /*same 1 width*/
+    flex: 1;
+    padding: 6px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.label:focus,
+.date:focus {
+    border-color: #382B73;
+}
+
+
