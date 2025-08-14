@@ -224,7 +224,7 @@ function Home() {
     const progressPercent = filteredTodos.length === 0 ? 0 : (completedCount / filteredTodos.length) * 100;
 
 
-    const headingsMap = {
+    const headingsMatch = {
         all: 'All Tasks',
         important: 'Important Tasks',
         work: 'Work Tasks',
@@ -232,7 +232,7 @@ function Home() {
     };
     //change when set state
 
-    const heading = headingsMap[taskLabel] || '';
+    const heading = headingsMatch[taskLabel] || '';
 
     return (
         <div className="all-page">
@@ -280,7 +280,7 @@ function Home() {
                             <input
                                 className="date"
                                 type="date"
-                                value={date}
+                                value={date }
                                 onChange={(evt) => setDate(evt.target.value)}
                                 disabled={clicked}
                             />
