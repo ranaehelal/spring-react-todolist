@@ -1,0 +1,21 @@
+
+/* ---------------------------Progress ---------------------------- */
+
+.progress-bar {
+    background-color: rgba(120, 95, 255, 0.39);
+    border-radius: 8px;
+    height: 20px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.progress-fill {
+    background-color: #382B73;
+    height: 100%;
+    border-radius: 8px;
+
+}
+
+.progress-text {
+    margin-top: 5px;
+}
